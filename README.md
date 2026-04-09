@@ -15,4 +15,6 @@ in src section create two Folders
   ->useDateRange
   ->useHero/usePlayer
 
-  Reason behind custom hooks to make code clean and neat and use code in global leve'
+  Reason behind custom hooks to make code clean and neat and use code in global level code
+
+  

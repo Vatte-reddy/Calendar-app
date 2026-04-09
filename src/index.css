@@ -1,3 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Caveat:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --calendar-blue: #3b82f6;
+  --paper-white: #ffffff;
+  --bg-wall: #e2e8f0;
+}
+
+/* Base Styles */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--bg-wall);
+  background-image: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wall Hanger */
+.wall-nail {
+  width: 12px;
+  height: 12px;
+  background: #334155;
+  border-radius: 50%;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.hanging-thread {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  width: 110px;
+  height: 55px;
+  border-left: 2px solid #64748b;
+  border-top: 2px solid #64748b;
+  border-right: 2px solid #64748b;
+  transform: translateX(-50%) perspective(150px) rotateX(25deg);
+  border-radius: 40% 40% 0 0;
+  z-index: 5;
+}
+
+/* Spiral Binding */
+.spiral-container {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 40px;
+  z-index: 50;
+}
+
+.spiral-ring {
+  width: 8px;
+  height: 32px;
+  background: linear-gradient(135deg, #ffffff, #94a3b8);
+  border-radius: 10px;
+}
+
+/* Calendar Page - STRICT HEIGHT ENFORCEMENT */
+.calendar-page {
+  background: var(--paper-white);
+  width: 85vw;
+  max-width: 840px;
+  height: 85vh;
+  /* HARD LOCKED HEIGHT */
+  min-height: 550px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 60px 120px -30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 42%;
+  width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-bottom: 5px solid #1e293b;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 80%);
+}
+
+.year-month-display {
+  position: absolute;
+  bottom: 25px;
+  right: 45px;
+  text-align: right;
+  z-index: 20;
+  color: white;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.month-text {
+  font-size: 3.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  line-height: 0.9;
+}
+
+/* Content Section - FIXED RATIO */
+.calendar-content {
+  padding: 30px 45px 75px 45px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  /* Wider sidebar for better writing */
+  flex: 1;
+  min-height: 0;
+  gap: 50px;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .calendar-page {
+    width: 95vw;
+    height: auto;
+    min-height: auto;
+    max-width: none;
+    overflow-y: auto;
+  }
+
+  .calendar-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 20px 20px 100px 20px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .notes-container {
+    order: 2;
+    /* Move notes below the calendar on mobile */
+    height: 500px;
+    /* Give it a fixed height for scrolling */
+  }
+
+  .calendar-grid-section {
+    order: 1;
+  }
+
+  .hero-section {
+    height: 300px;
+  }
+
+  .month-text {
+    font-size: 2.5rem;
+  }
+
+  .player-signature {
+    font-size: 2.2rem;
+    left: 20px;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .day-cell {
+    aspect-ratio: 1.1;
+  }
+
+  .year-month-display {
+    right: 20px;
+    bottom: 15px;
+  }
+
+  .calendar-page {
+    border-radius: 0;
+    width: 100vw;
+  }
+}
+
+
+.day-cell {
+  aspect-ratio: 1.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+/* Wavy Footer */
+.wavy-footer {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.wavy-path {
+  fill: var(--paper-white);
+}
+
+.accent-path-light {
+  fill: #f8fafc;
+  opacity: 0.6;
+}
+
+.accent-path-dark {
+  fill: #1e293b;
+  opacity: 1;
+}
+
+.memo-area {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(90deg, transparent 34px, #fecaca 34px, #fecaca 35px, transparent 35px),
+    linear-gradient(#e5edf5 1px, transparent 1px);
+  background-size: 100% 100%, 100% 32px;
+  line-height: 32px;
+  padding: 10px 16px 10px 45px !important;
+  min-height: 80px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-family: 'Caveat', cursive;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.memo-area:focus {
+  outline: none;
+  border-color: #cbd5e1;
+  background-color: #fafbfc;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.95);
+  color: black;
+  font-weight: 900;
+  font-size: 0.6rem;
+  padding: 5px 12px;
+  border-radius: 4px;
+}
+
+.player-signature {
+  font-family: 'Caveat', cursive;
+  position: absolute;
+  left: 45px;
+  bottom: 25px;
+  color: white;
+  font-size: 3.2rem;
+  font-weight: 400;
+  text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5);
+  transform: rotate(-3deg);
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}

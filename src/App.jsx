@@ -1,12 +1,13 @@
-
-import './index.css'
+import React from 'react';
+import CalendarContainer from './components/CalendarContainer';
+import './index.css';
 
 function App() {
-  
-
   return (
-    <h1 className="text-3xl text-blue-500">Tailwind Working</h1>
-  )
+    <div className="h-screen w-screen flex items-center justify-center overflow-hidden">
+      <CalendarContainer />
+    </div>
+  );
 }
 
-export default App
+export default App;
